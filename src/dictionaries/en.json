@@ -1,0 +1,14 @@
+{
+  "pages": {
+    "home": {}
+  },
+  "layouts": {
+    "root": {
+      "toggleTheme": "Toggle Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "api": {}
+}

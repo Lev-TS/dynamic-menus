@@ -1,0 +1,14 @@
+{
+  "pages": {
+    "home": {}
+  },
+  "layouts": {
+    "root": {
+      "toggleTheme": "Pasirinkite formatą",
+      "light": "Šviesus",
+      "dark": "Tamsus",
+      "system": "Sistemos"
+    }
+  },
+  "api": {}
+}
