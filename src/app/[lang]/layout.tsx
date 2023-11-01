@@ -28,7 +28,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
                   <LocaleToggle />
                 </div>
               </header>
-              <main className="flex-1 overflow-auto bg-slate-600/10">{children}</main>
+              <main className="flex-1 overflow-auto bg-slate-600/10 p-3">{children}</main>
             </div>
           </ThemeProvider>
         </DictContextProvider>

@@ -3,12 +3,12 @@
 import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 
+import { type Locale, i18n } from "@/i18n.config";
+import { useLang } from "@/hooks/useLang";
+
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
-
-import { type Locale, i18n } from "@/i18n.config";
-import { useLang } from "@/hooks/useLang";
 
 export const LocaleToggle = () => {
   const lang = useLang();
@@ -17,9 +17,13 @@ export const LocaleToggle = () => {
   const [currentLocale, setCurrentLocale] = React.useState(lang);
 
   const redirectedPathName = (locale: string) => {
-    if (!pathName) return "/";
+    if (!pathName) {
+      return "/";
+    }
     const segments = pathName.split("/");
+
     segments[1] = locale;
+
     return segments.join("/");
   };
 
