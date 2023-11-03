@@ -46,6 +46,10 @@ async function seed() {
         en: "Vintage Gallery",
         lt: "ძველი გალერია",
       },
+      descriptionDict: {
+        en: "The best apartment of all times",
+        lt: "ყველა დროის საუკეთესო სახლი",
+      },
       categoryRecipes: {
         create: [
           {
@@ -66,6 +70,24 @@ async function seed() {
                 icon: null,
                 nestedCategories: {
                   create: [checkIn, storage, laundry],
+                },
+              },
+            },
+          },
+          {
+            category: {
+              create: {
+                subTitleDict: {
+                  en: "tmp",
+                  lt: "ტმპ",
+                },
+                nestedCategories: {
+                  create: [
+                    {
+                      titleDict: { en: "House Manual", lt: "სახლის შესახებ" },
+                      icon: "RiBookOpenLine",
+                    },
+                  ],
                 },
               },
             },

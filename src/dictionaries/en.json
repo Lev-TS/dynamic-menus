@@ -2,8 +2,7 @@
   "pages": {
     "home": {},
     "notFound": {
-      "toHome": "Home",
-      "message": "Could not find requested resource"
+      "message": "Requested resource not found"
     }
   },
   "layouts": {

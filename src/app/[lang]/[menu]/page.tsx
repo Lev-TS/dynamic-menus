@@ -1,13 +1,30 @@
 import { NestedCategories } from "@/components/NestedCategory/component";
+import { buildMenuRoute } from "@/lib/cross/navigation/utils";
+import { parsePrismaDict } from "@/lib/cross/db/utils";
 import { prisma } from "@/lib/server/db/utils";
 
 import type { MenuPageProps } from "./types";
+import { notFound } from "next/navigation";
+import { MenuPageLayout } from "@/components/MenuPageLayout/component";
 
 export default async function MenuPage({ params }: MenuPageProps) {
+  const menu = await getMenu(params.menu);
+
+  return (
+    <MenuPageLayout
+      menuRoute={buildMenuRoute({ lang: params.lang, menuName: params.menu })}
+      menuTitle={parsePrismaDict(menu.titleDict, params.lang)}
+    >
+      {menu.categoryRecipes.map(({ category }) => (
+        <NestedCategories menuName={params.menu} category={category} lang={params.lang} key={category.id} />
+      ))}
+    </MenuPageLayout>
+  );
+}
+
+async function getMenu(slug: string) {
   const menu = await prisma.menu.findUnique({
-    where: {
-      slug: params.menu,
-    },
+    where: { slug },
     include: {
       categoryRecipes: {
         include: {
@@ -22,12 +39,8 @@ export default async function MenuPage({ params }: MenuPageProps) {
   });
 
   if (menu == null) {
-    return <div>Not Found</div>;
+    notFound();
   }
 
-  return menu.categoryRecipes.map(({ category }) => (
-    <div className="m-auto max-w-sm" key={category.id}>
-      <NestedCategories menuName={params.menu} category={category} lang={params.lang} />
-    </div>
-  ));
+  return menu;
 }

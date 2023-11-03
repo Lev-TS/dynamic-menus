@@ -11,7 +11,7 @@ export const InfoLink: FC<InfoLinkProps> = ({ href, title, subTitle, isSeparated
       <Link href={href} className="flex w-full items-center justify-between p-3">
         <div className="flex items-center gap-3">
           {icon ?? null}
-          <p>{title}</p>
+          {title ? <p>{title}</p> : null}
         </div>
         <div className="flex items-center gap-2">
           {subTitle && <p className="text-xs">{subTitle}</p>}

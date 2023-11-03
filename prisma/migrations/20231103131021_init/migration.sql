@@ -5,6 +5,7 @@ CREATE TABLE "Menu" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "slug" TEXT NOT NULL,
     "titleDict" JSONB NOT NULL,
+    "descriptionDict" JSONB NOT NULL,
 
     CONSTRAINT "Menu_pkey" PRIMARY KEY ("id")
 );
@@ -24,7 +25,7 @@ CREATE TABLE "Category" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "parentCategoryId" TEXT,
-    "titleDict" JSONB NOT NULL,
+    "titleDict" JSONB,
     "subTitleDict" JSONB,
     "icon" TEXT,
 

@@ -18,18 +18,10 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
   return (
     <html lang={params.lang} suppressHydrationWarning>
-      <body className={cn("bg-background min-h-screen font-sans antialiased", fontSans.variable)}>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <DictContextProvider dict={dict}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="flex min-h-screen flex-col">
-              <header className="bg-background sticky top-0 z-50 border-b p-3">
-                <div className="flex justify-end gap-3">
-                  <ThemeModeToggle />
-                  <LocaleToggle />
-                </div>
-              </header>
-              <main className="flex-1 space-y-5 overflow-auto bg-slate-600/10 p-3">{children}</main>
-            </div>
+            {children}
           </ThemeProvider>
         </DictContextProvider>
       </body>

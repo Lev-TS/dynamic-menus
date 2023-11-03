@@ -1,3 +1,3 @@
 import { ReactNode } from "react";
 
-export type InfoCategoryCardProps = { children: ReactNode; title: string };
+export type InfoCategoryCardProps = { children: ReactNode; title?: string };

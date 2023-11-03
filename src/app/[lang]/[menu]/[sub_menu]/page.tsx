@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { RxChevronLeft } from "react-icons/rx";
 import { notFound } from "next/navigation";
 
 import { NestedCategories } from "@/components/NestedCategory/component";
@@ -8,11 +6,56 @@ import { parsePrismaDict } from "@/lib/cross/db/utils";
 import { prisma } from "@/lib/server/db/utils";
 
 import { SubMenuProps } from "./types";
+import { MenuPageLayout } from "@/components/MenuPageLayout/component";
 
 export default async function SubMenuPage({ params }: SubMenuProps) {
+  const [menu, category] = await Promise.all([getMenu(params.menu), getCategory(params.sub_menu)]);
+
+  const categoryRoute =
+    category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null
+      ? buildSubMenuRoute({ lang: params.lang, menuName: params.menu, menuItemId: category.parentCategoryId })
+      : buildMenuRoute({ lang: params.lang, menuName: params.menu });
+
+  const categoryTitle =
+    category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null
+      ? parsePrismaDict(category.parentCategory.titleDict, params.lang)
+      : "Home";
+
+  return (
+    <MenuPageLayout
+      menuRoute={buildMenuRoute({ lang: params.lang, menuName: params.menu })}
+      menuTitle={parsePrismaDict(menu.titleDict, params.lang)}
+      categoryRoute={categoryRoute}
+      categoryTitle={categoryTitle}
+    >
+      {category.nestedCategories.length == 0 ? (
+        <p>{`This will be info about ${parsePrismaDict(category.titleDict, params.lang)}`}</p>
+      ) : (
+        <NestedCategories menuName={params.menu} category={category} lang={params.lang} />
+      )}
+    </MenuPageLayout>
+  );
+}
+
+async function getMenu(slug: string) {
+  const menu = await prisma.menu.findUnique({
+    where: { slug },
+    select: {
+      titleDict: true,
+    },
+  });
+
+  if (menu == null) {
+    notFound();
+  }
+
+  return menu;
+}
+
+async function getCategory(categoryId: string) {
   const category = await prisma.category.findUnique({
     where: {
-      id: params.sub_menu,
+      id: categoryId,
     },
     include: {
       parentCategory: true,
@@ -24,37 +67,5 @@ export default async function SubMenuPage({ params }: SubMenuProps) {
     notFound();
   }
 
-  const parentLink = (
-    <div className="absolute left-3 top-[18px] z-50 flex space-x-2">
-      <Link href={buildMenuRoute({ lang: params.lang, menuName: params.menu })} className="flex items-center space-x-1">
-        <RxChevronLeft className="h-6 w-6" />
-        <p>Home</p>
-      </Link>
-      {category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null ? (
-        <Link
-          href={buildSubMenuRoute({ lang: params.lang, menuName: params.menu, menuItemId: category.parentCategoryId })}
-          className="flex items-center space-x-1"
-        >
-          <RxChevronLeft className="h-6 w-6" />
-          <p>{parsePrismaDict(category.parentCategory.titleDict, params.lang)}</p>
-        </Link>
-      ) : null}
-    </div>
-  );
-
-  if (category.nestedCategories.length == 0) {
-    return (
-      <div>
-        {parentLink}
-        <span>{`This is info about ${parsePrismaDict(category.titleDict, params.lang)}`}</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="m-auto max-w-sm space-y-6">
-      {parentLink}
-      <NestedCategories menuName={params.menu} category={category} lang={params.lang} />
-    </div>
-  );
+  return category;
 }
