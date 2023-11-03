@@ -1,6 +1,6 @@
 {
   "pages": {
-    "home": {},
+    "subMenu": { "home": "home" },
     "notFound": {
       "message": "Requested resource not found"
     }

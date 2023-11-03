@@ -12,7 +12,9 @@ CREATE TABLE "Menu" (
 
 -- CreateTable
 CREATE TABLE "categoriesOnMenus" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "menuId" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
 

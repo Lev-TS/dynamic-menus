@@ -7,9 +7,11 @@ import { prisma } from "@/lib/server/db/utils";
 
 import { SubMenuProps } from "./types";
 import { MenuPageLayout } from "@/components/MenuPageLayout/component";
+import { getDictionary } from "@/lib/server/locale/utils";
 
 export default async function SubMenuPage({ params }: SubMenuProps) {
   const [menu, category] = await Promise.all([getMenu(params.menu), getCategory(params.sub_menu)]);
+  const dict = await getDictionary(params.lang);
 
   const categoryRoute =
     category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null
@@ -19,7 +21,7 @@ export default async function SubMenuPage({ params }: SubMenuProps) {
   const categoryTitle =
     category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null
       ? parsePrismaDict(category.parentCategory.titleDict, params.lang)
-      : "Home";
+      : dict.pages.subMenu.home;
 
   return (
     <MenuPageLayout

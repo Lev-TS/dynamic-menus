@@ -12,7 +12,7 @@ const levan = {
 
 const nino = {
   titleDict: { en: "Nino", lt: "ნინო" },
-  // subTitleDict: { en: "co-Host", lt: "დამხმარე" },
+  subTitleDict: { en: "co-Host", lt: "დამხმარე" },
   icon: "RxAvatar",
 };
 
@@ -32,7 +32,7 @@ const storage = {
 };
 const laundry = {
   titleDict: { en: "Laundry", lt: "სამრეცხაო" },
-  // subTitleDict: { en: "Everyday 07:00 - 23:00", lt: "ყოველდღე 07:00 - 23:00" },
+  subTitleDict: { en: "Everyday 07:00 - 23:00", lt: "ყოველდღე 07:00 - 23:00" },
   icon: "GiWashingMachine",
 };
 

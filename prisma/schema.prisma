@@ -18,7 +18,9 @@ model Menu {
 }
 
 model categoriesOnMenus {
-  id         String   @id @default(uuid())
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   menu       Menu     @relation(fields: [menuId], references: [id])
   menuId     String
   category   Category @relation(fields: [categoryId], references: [id])

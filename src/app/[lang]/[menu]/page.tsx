@@ -9,6 +9,7 @@ import { MenuPageLayout } from "@/components/MenuPageLayout/component";
 
 export default async function MenuPage({ params }: MenuPageProps) {
   const menu = await getMenu(params.menu);
+  console.log(menu.categoryRecipes[1]);
 
   return (
     <MenuPageLayout
@@ -33,6 +34,9 @@ async function getMenu(slug: string) {
               nestedCategories: true,
             },
           },
+        },
+        orderBy: {
+          id: "desc",
         },
       },
     },
