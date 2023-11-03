@@ -10,17 +10,17 @@ import { prisma } from "@/lib/server/db/utils";
 import { SubMenuProps } from "./types";
 
 export default async function SubMenuPage({ params }: SubMenuProps) {
-  const nestedCategory = await prisma.nestedCategory.findUnique({
+  const category = await prisma.category.findUnique({
     where: {
       id: params.sub_menu,
     },
     include: {
-      parent: true,
-      children: true,
+      parentCategory: true,
+      nestedCategories: true,
     },
   });
 
-  if (nestedCategory == null) {
+  if (category == null) {
     notFound();
   }
 
@@ -30,23 +30,23 @@ export default async function SubMenuPage({ params }: SubMenuProps) {
         <RxChevronLeft className="h-6 w-6" />
         <p>Home</p>
       </Link>
-      {nestedCategory.parentId != null && nestedCategory.parent?.parentId != null ? (
+      {category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null ? (
         <Link
-          href={buildSubMenuRoute({ lang: params.lang, menuName: params.menu, menuItemId: nestedCategory.parentId })}
+          href={buildSubMenuRoute({ lang: params.lang, menuName: params.menu, menuItemId: category.parentCategoryId })}
           className="flex items-center space-x-1"
         >
           <RxChevronLeft className="h-6 w-6" />
-          <p>{parsePrismaDict(nestedCategory.parent.titleDict, params.lang)}</p>
+          <p>{parsePrismaDict(category.parentCategory.titleDict, params.lang)}</p>
         </Link>
       ) : null}
     </div>
   );
 
-  if (nestedCategory.children.length == 0) {
+  if (category.nestedCategories.length == 0) {
     return (
       <div>
         {parentLink}
-        <span>{`This is info about ${parsePrismaDict(nestedCategory.titleDict, params.lang)}`}</span>
+        <span>{`This is info about ${parsePrismaDict(category.titleDict, params.lang)}`}</span>
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default async function SubMenuPage({ params }: SubMenuProps) {
   return (
     <div className="m-auto max-w-sm space-y-6">
       {parentLink}
-      <NestedCategories menuName={params.menu} nestedCategory={nestedCategory} lang={params.lang} />
+      <NestedCategories menuName={params.menu} category={category} lang={params.lang} />
     </div>
   );
 }

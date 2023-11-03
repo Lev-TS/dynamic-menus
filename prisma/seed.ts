@@ -46,25 +46,25 @@ async function seed() {
         en: "Vintage Gallery",
         lt: "ძველი გალერია",
       },
-      nestedCategoryRecipes: {
+      categoryRecipes: {
         create: [
           {
-            nestedCategory: {
+            category: {
               create: {
                 ...hosts,
                 icon: null,
-                children: {
-                  create: [{ ...levan, children: { create: [checkIn, storage, laundry] } }, nino],
+                nestedCategories: {
+                  create: [{ ...levan, nestedCategories: { create: [checkIn, storage, laundry] } }, nino],
                 },
               },
             },
           },
           {
-            nestedCategory: {
+            category: {
               create: {
                 ...access,
                 icon: null,
-                children: {
+                nestedCategories: {
                   create: [checkIn, storage, laundry],
                 },
               },

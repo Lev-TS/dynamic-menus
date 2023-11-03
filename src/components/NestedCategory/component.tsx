@@ -7,10 +7,10 @@ import { buildSubMenuRoute } from "@/lib/cross/navigation/utils";
 import { NestedCategoryProps } from "./types";
 import { parsePrismaDict, parsePrismaOptionalDict } from "@/lib/cross/db/utils";
 
-export const NestedCategories: FC<NestedCategoryProps> = ({ nestedCategory, menuName, lang }) => {
+export const NestedCategories: FC<NestedCategoryProps> = ({ category, menuName, lang }) => {
   return (
-    <InfoCategoryCard title={parsePrismaDict(nestedCategory.titleDict, lang)}>
-      {nestedCategory.children.map((childInfo, idx, arr) => {
+    <InfoCategoryCard title={parsePrismaDict(category.titleDict, lang)}>
+      {category.nestedCategories.map((childInfo, idx, arr) => {
         const href = buildSubMenuRoute({ menuName, lang, menuItemId: childInfo.id });
 
         return (

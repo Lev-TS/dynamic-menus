@@ -9,11 +9,11 @@ export default async function MenuPage({ params }: MenuPageProps) {
       slug: params.menu,
     },
     include: {
-      nestedCategoryRecipes: {
+      categoryRecipes: {
         include: {
-          nestedCategory: {
+          category: {
             include: {
-              children: true,
+              nestedCategories: true,
             },
           },
         },
@@ -25,9 +25,9 @@ export default async function MenuPage({ params }: MenuPageProps) {
     return <div>Not Found</div>;
   }
 
-  return menu.nestedCategoryRecipes.map(({ nestedCategory }) => (
-    <div className="m-auto max-w-sm" key={nestedCategory.id}>
-      <NestedCategories menuName={params.menu} nestedCategory={nestedCategory} lang={params.lang} />
+  return menu.categoryRecipes.map(({ category }) => (
+    <div className="m-auto max-w-sm" key={category.id}>
+      <NestedCategories menuName={params.menu} category={category} lang={params.lang} />
     </div>
   ));
 }

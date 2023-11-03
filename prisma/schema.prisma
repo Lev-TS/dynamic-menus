@@ -8,31 +8,31 @@ datasource db {
 }
 
 model Menu {
-  id                    String                    @id @default(cuid())
-  createdAt             DateTime                  @default(now())
-  updatedAt             DateTime                  @updatedAt
-  nestedCategoryRecipes nestedCategoriesOnMenus[]
-  slug                  String                    @unique
-  titleDict             Json
+  id              String              @id @default(cuid())
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  categoryRecipes categoriesOnMenus[]
+  slug            String              @unique
+  titleDict       Json
 }
 
-model nestedCategoriesOnMenus {
-  id               String         @id @default(uuid())
-  menu             Menu           @relation(fields: [menuId], references: [id])
-  menuId           String
-  nestedCategory   NestedCategory @relation(fields: [nestedCategoryId], references: [id])
-  nestedCategoryId String
+model categoriesOnMenus {
+  id         String   @id @default(uuid())
+  menu       Menu     @relation(fields: [menuId], references: [id])
+  menuId     String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
 }
 
-model NestedCategory {
-  id           String                    @id @default(cuid())
-  createdAt    DateTime                  @default(now())
-  updatedAt    DateTime                  @updatedAt
-  menuRecipes  nestedCategoriesOnMenus[]
-  parent       NestedCategory?           @relation("LinkFamilyTree", fields: [parentId], references: [id])
-  parentId     String?
-  children     NestedCategory[]          @relation("LinkFamilyTree")
-  titleDict    Json
-  subTitleDict Json?
-  icon         String?
+model Category {
+  id               String              @id @default(cuid())
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  menuRecipes      categoriesOnMenus[]
+  parentCategory   Category?           @relation("LinkFamilyTree", fields: [parentCategoryId], references: [id])
+  parentCategoryId String?
+  nestedCategories Category[]          @relation("LinkFamilyTree")
+  titleDict        Json
+  subTitleDict     Json?
+  icon             String?
 }
