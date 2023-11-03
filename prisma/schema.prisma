@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Menu {
+  id                    String                    @id @default(cuid())
+  createdAt             DateTime                  @default(now())
+  updatedAt             DateTime                  @updatedAt
+  nestedCategoryRecipes nestedCategoriesOnMenus[]
+  slug                  String                    @unique
+  titleDict             Json
+}
+
+model nestedCategoriesOnMenus {
+  id               String         @id @default(uuid())
+  menu             Menu           @relation(fields: [menuId], references: [id])
+  menuId           String
+  nestedCategory   NestedCategory @relation(fields: [nestedCategoryId], references: [id])
+  nestedCategoryId String
+}
+
+model NestedCategory {
+  id           String                    @id @default(cuid())
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
+  menuRecipes  nestedCategoriesOnMenus[]
+  parent       NestedCategory?           @relation("LinkFamilyTree", fields: [parentId], references: [id])
+  parentId     String?
+  children     NestedCategory[]          @relation("LinkFamilyTree")
+  titleDict    Json
+  subTitleDict Json?
+  icon         String?
+}

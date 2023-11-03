@@ -1,13 +1,17 @@
 {
   "pages": {
-    "home": {}
+    "home": {},
+    "notFound": {
+      "toHome": "სახლი",
+      "message": "მთხოცნილი რესურსი არ იძებნება"
+    }
   },
   "layouts": {
     "root": {
       "toggleTheme": "Pasirinkite formatą",
-      "light": "Šviesus",
-      "dark": "Tamsus",
-      "system": "Sistemos"
+      "light": "ღია",
+      "dark": "მუქი",
+      "system": "სისტემის"
     }
   },
   "api": {}

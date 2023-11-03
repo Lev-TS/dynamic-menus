@@ -4,6 +4,6 @@ export type InfoLinkProps = {
   href: string;
   title: string;
   isSeparated: boolean;
-  subTitle: string;
+  subTitle?: string;
   icon: ReactNode;
 };

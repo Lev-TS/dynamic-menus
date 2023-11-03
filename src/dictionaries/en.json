@@ -1,6 +1,10 @@
 {
   "pages": {
-    "home": {}
+    "home": {},
+    "notFound": {
+      "toHome": "Home",
+      "message": "Could not find requested resource"
+    }
   },
   "layouts": {
     "root": {

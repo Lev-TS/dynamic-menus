@@ -6,7 +6,7 @@ import { cn } from "@/lib/cross/tailwind/utils";
 import { DynamicIconProps } from "./types";
 
 export const DynamicIcon: FC<DynamicIconProps> = async ({ name, className }) => {
-  if (!name) {
+  if (name == null) {
     return null;
   }
 

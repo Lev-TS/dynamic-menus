@@ -1,4 +1,4 @@
 export type DynamicIconProps = {
-  name?: string;
+  name: string | null;
   className?: string;
 };

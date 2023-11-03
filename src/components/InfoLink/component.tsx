@@ -1,12 +1,11 @@
-import { type FC } from "react";
 import Link from "next/link";
-
 import { RxChevronRight } from "react-icons/rx";
-import { Separator } from "../ui/separator";
+import { type FC } from "react";
 
 import { InfoLinkProps } from "./types";
+import { Separator } from "../ui/separator";
 
-export const InfoLink = ({ href, title, subTitle, isSeparated, icon }: InfoLinkProps) => {
+export const InfoLink: FC<InfoLinkProps> = ({ href, title, subTitle, isSeparated, icon }) => {
   return (
     <>
       <Link href={href} className="flex w-full items-center justify-between p-3">
@@ -15,7 +14,7 @@ export const InfoLink = ({ href, title, subTitle, isSeparated, icon }: InfoLinkP
           <p>{title}</p>
         </div>
         <div className="flex items-center gap-2">
-          {subTitle && <div className="text-xs">{subTitle}</div>}
+          {subTitle && <p className="text-xs">{subTitle}</p>}
           <RxChevronRight className="h-6 w-6" />
         </div>
       </Link>
