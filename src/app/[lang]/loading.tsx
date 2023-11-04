@@ -1,9 +1,9 @@
 import { Spinner } from "@/components/Spinner/component";
 
-export default function RootLoader() {
+export default async function RootLoader() {
   return (
-    <div className="absolute right-3 top-4 z-50">
-      <Spinner className="h-6 w-6  border-red-900" />
+    <div className="flex h-screen items-center justify-center">
+      <Spinner className="border-red-900" />
     </div>
   );
 }

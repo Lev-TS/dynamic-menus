@@ -5,7 +5,7 @@ import { type FC } from "react";
 import { InfoLinkProps } from "./types";
 import { Separator } from "../ui/separator";
 
-export const InfoLink: FC<InfoLinkProps> = ({ href, title, subTitle, isSeparated, icon }) => {
+export const CategoryLink: FC<InfoLinkProps> = ({ href, title, subTitle, isSeparated, icon }) => {
   return (
     <>
       <Link href={href} className="flex w-full items-center justify-between p-3">
