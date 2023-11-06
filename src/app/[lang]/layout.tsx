@@ -3,15 +3,14 @@ import "@/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 
 import type { Metadata } from "next";
+
 import type { RootLayoutProps } from "./types";
 
-import { LocaleToggle } from "@/components/LocaleToggle/component";
-import { ThemeModeToggle } from "@/components/ThemeModeToggle/component";
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import { i18n } from "@/i18n.config";
-import { getDictionary } from "@/lib/server/locale/utils";
-import { cn } from "@/lib/cross/tailwind/utils";
 import { DictContextProvider } from "@/providers/DictContextProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { cn } from "@/lib/cross/tailwind/utils";
+import { getDictionary } from "@/lib/server/locale/utils";
+import { i18n } from "@/i18n.config";
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   const dict = await getDictionary(params.lang);
@@ -35,8 +34,8 @@ export const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Hostips",
-  description: "Hosting tips",
+  title: "Menus",
+  description: "Menu builder",
 };
 
 export function generateStaticParams() {

@@ -12,11 +12,12 @@ import { getDictionary } from "@/lib/server/locale/utils";
 export default async function SubMenuPage({ params }: SubMenuProps) {
   const [menu, category] = await Promise.all([getMenu(params.menu), getCategory(params.sub_menu)]);
   const dict = await getDictionary(params.lang);
+  const menuRoute = buildMenuRoute({ lang: params.lang, menuName: params.menu });
 
   const categoryRoute =
     category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null
       ? buildSubMenuRoute({ lang: params.lang, menuName: params.menu, menuItemId: category.parentCategoryId })
-      : buildMenuRoute({ lang: params.lang, menuName: params.menu });
+      : menuRoute;
 
   const categoryTitle =
     category.parentCategoryId != null && category.parentCategory?.parentCategoryId != null
@@ -25,7 +26,7 @@ export default async function SubMenuPage({ params }: SubMenuProps) {
 
   return (
     <MenuPageLayout
-      menuRoute={buildMenuRoute({ lang: params.lang, menuName: params.menu })}
+      menuRoute={menuRoute}
       menuTitle={parsePrismaDict(menu.titleDict, params.lang)}
       categoryRoute={categoryRoute}
       categoryTitle={categoryTitle}
